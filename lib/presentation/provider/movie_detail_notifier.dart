@@ -80,7 +80,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   String get watchlistMessage => _watchlistMessage;
 
   Future<void> addWatchlist(MovieDetail movie) async {
-    final result = await saveWatchlist.execute(movie);
+    final result = await saveWatchlist.executeMovie(movie);
 
     await result.fold(
       (failure) async {
@@ -110,7 +110,7 @@ class MovieDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> loadWatchlistStatus(int id) async {
-    final result = await getWatchListStatus.execute(id);
+    final result = await getWatchListStatus.executeMovie(id);
     _isAddedtoWatchlist = result;
     notifyListeners();
   }

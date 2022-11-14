@@ -64,8 +64,8 @@ class TVSeriesModel extends Equatable {
         "originalName": originalName,
       };
 
-  TVSeries toEntitiy() {
-    return TVSeries(
+  TvSeries toEntitiy() {
+    return TvSeries(
       posterPath: this.posterPath,
       popularity: this.popularity,
       id: this.id,

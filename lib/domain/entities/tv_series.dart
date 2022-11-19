@@ -17,7 +17,7 @@ class TvSeries extends Equatable {
     required this.originalName,
   });
 
-  TvSeries.watchList({
+  TvSeries.watchlist({
     required this.id,
     required this.overview,
     required this.posterPath,

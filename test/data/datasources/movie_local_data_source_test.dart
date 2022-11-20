@@ -16,23 +16,33 @@ void main() {
   });
 
   group('save watchlist', () {
-    test('should return success message when insert to database is success', () async {
-      // arrange
-      when(mockDatabaseHelper.insertMovieWatchlist(testMovieTable)).thenAnswer((_) async => 1);
-      // act
-      final result = await dataSource.insertWatchlist(testMovieTable);
-      // assert
-      expect(result, 'Added to Watchlist');
-    });
+    test(
+      'should return success message when insert to database is success',
+      () async {
+        // arrange
+        when(mockDatabaseHelper.insertMovieWatchlist(testMovieTable)).thenAnswer(
+          (_) async => 1,
+        );
+        // act
+        final result = await dataSource.insertWatchlist(testMovieTable);
+        // assert
+        expect(result, 'Added to Watchlist');
+      },
+    );
 
-    test('should throw DatabaseException when insert to database is failed', () async {
-      // arrange
-      when(mockDatabaseHelper.insertMovieWatchlist(testMovieTable)).thenThrow(Exception());
-      // act
-      final call = dataSource.insertWatchlist(testMovieTable);
-      // assert
-      expect(() => call, throwsA(isA<DatabaseException>()));
-    });
+    test(
+      'should throw DatabaseException when insert to database is failed',
+      () async {
+        // arrange
+        when(mockDatabaseHelper.insertMovieWatchlist(testMovieTable)).thenThrow(
+          Exception(),
+        );
+        // act
+        final call = dataSource.insertWatchlist(testMovieTable);
+        // assert
+        expect(() => call, throwsA(isA<DatabaseException>()));
+      },
+    );
   });
 
   group('remove watchlist', () {

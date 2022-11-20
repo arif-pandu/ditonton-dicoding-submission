@@ -174,16 +174,31 @@ class MockRemoveWatchlist extends _i1.Mock implements _i14.RemoveWatchlist {
   }
 
   @override
-  _i2.MovieRepository get repository =>
-      (super.noSuchMethod(Invocation.getter(#repository),
-              returnValue:
-                  _FakeMovieRepository_0(this, Invocation.getter(#repository)))
-          as _i2.MovieRepository);
+  _i2.MovieRepository get movieRepository => (super.noSuchMethod(
+          Invocation.getter(#movieRepository),
+          returnValue:
+              _FakeMovieRepository_0(this, Invocation.getter(#movieRepository)))
+      as _i2.MovieRepository);
   @override
-  _i6.Future<_i3.Either<_i7.Failure, String>> execute(_i8.MovieDetail? movie) =>
-      (super.noSuchMethod(Invocation.method(#execute, [movie]),
+  _i4.TVSeriesRepository get tvSeriesRepository =>
+      (super.noSuchMethod(Invocation.getter(#tvSeriesRepository),
+              returnValue: _FakeTVSeriesRepository_2(
+                  this, Invocation.getter(#tvSeriesRepository)))
+          as _i4.TVSeriesRepository);
+  @override
+  _i6.Future<_i3.Either<_i7.Failure, String>> executeMovie(
+          _i8.MovieDetail? movie) =>
+      (super.noSuchMethod(Invocation.method(#executeMovie, [movie]),
               returnValue: _i6.Future<_i3.Either<_i7.Failure, String>>.value(
                   _FakeEither_1<_i7.Failure, String>(
-                      this, Invocation.method(#execute, [movie]))))
+                      this, Invocation.method(#executeMovie, [movie]))))
+          as _i6.Future<_i3.Either<_i7.Failure, String>>);
+  @override
+  _i6.Future<_i3.Either<_i7.Failure, String>> executeTvSeries(
+          _i13.TvSeriesDetail? tvSeries) =>
+      (super.noSuchMethod(Invocation.method(#executeTvSeries, [tvSeries]),
+              returnValue: _i6.Future<_i3.Either<_i7.Failure, String>>.value(
+                  _FakeEither_1<_i7.Failure, String>(
+                      this, Invocation.method(#executeTvSeries, [tvSeries]))))
           as _i6.Future<_i3.Either<_i7.Failure, String>>);
 }

@@ -1,14 +1,21 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_series_detail.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
+import 'package:ditonton/domain/repositories/tv_series_repository.dart';
 
 class RemoveWatchlist {
-  final MovieRepository repository;
+  final MovieRepository movieRepository;
+  final TVSeriesRepository tvSeriesRepository;
 
-  RemoveWatchlist(this.repository);
+  RemoveWatchlist(this.movieRepository, this.tvSeriesRepository);
 
-  Future<Either<Failure, String>> execute(MovieDetail movie) {
-    return repository.removeWatchlist(movie);
+  Future<Either<Failure, String>> executeMovie(MovieDetail movie) {
+    return movieRepository.removeWatchlist(movie);
+  }
+
+  Future<Either<Failure, String>> executeTvSeries(TvSeriesDetail tvSeries) {
+    return tvSeriesRepository.removeWatchlist(tvSeries);
   }
 }

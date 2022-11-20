@@ -4,11 +4,11 @@ import 'package:ditonton/domain/entities/tv_series.dart';
 import 'package:ditonton/domain/repositories/tv_series_repository.dart';
 
 class GetWathclistTvSeries {
-  final TVSeriesRepository repository;
+  final TVSeriesRepository _repository;
 
-  GetWathclistTvSeries(this.repository);
+  GetWathclistTvSeries(this._repository);
 
   Future<Either<Failure, List<TvSeries>>> excute() {
-    return repository.getWatchlistTvSeries();
+    return _repository.getWatchlistTvSeries();
   }
 }

@@ -33,35 +33,35 @@ class TVSeriesModel extends Equatable {
   final String originalName;
 
   factory TVSeriesModel.fromJson(Map<String, dynamic> json) => TVSeriesModel(
-        posterPath: json["posterPath"],
+        posterPath: json["poster_path"],
         popularity: json["popularity"],
         id: json["id"],
-        backdropPath: json["backdropPath"],
-        voteAverage: json["voteAverage"],
+        backdropPath: json["backdrop_path"],
+        voteAverage: json["vote_average"],
         overview: json["overview"],
-        firstAirDate: json["firstAirDate"],
-        originCountry: json["originCountry"],
-        genreIds: json["genreIds"],
-        originalLanguage: json["originalLanguage"],
-        voteCount: json["voteCount"],
+        firstAirDate: json["first_air_date"],
+        originCountry: List<String>.from(json["origin_country"]),
+        genreIds: List<int>.from(json["genre_ids"]),
+        originalLanguage: json["original_language"],
+        voteCount: json["vote_count"],
         name: json["name"],
-        originalName: json["originalName"],
+        originalName: json["original_name"],
       );
 
   Map<String, dynamic> toJson() => {
-        "posterPath": posterPath,
+        "poster_path": posterPath,
         "popularity": popularity,
         "id": id,
-        "backdropPath": backdropPath,
-        "voteAverage": voteAverage,
+        "backdrop_path": backdropPath,
+        "vote_average": voteAverage,
         "overview": overview,
-        "firstAirDate": firstAirDate,
-        "originCountry": originCountry,
-        "genreIds": genreIds,
-        "originalLanguage": originalLanguage,
-        "voteCount": voteCount,
+        "first_air_date": firstAirDate,
+        "origin_country": originCountry,
+        "genre_ids": genreIds,
+        "original_language": originalLanguage,
+        "vote_count": voteCount,
         "name": name,
-        "originalName": originalName,
+        "original_name": originalName,
       };
 
   TvSeries toEntitiy() {

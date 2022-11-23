@@ -13,7 +13,8 @@ final testMovie = Movie(
   genreIds: [14, 28],
   id: 557,
   originalTitle: 'Spider-Man',
-  overview: 'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+  overview:
+      'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
   popularity: 60.441,
   posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
   releaseDate: '2002-05-01',
@@ -109,9 +110,10 @@ final testWatchlistMovie = Movie.watchlist(
 
 final testWatchlistTvSeries = TvSeries.watchlist(
   id: 1,
-  overview: 'overview',
-  posterPath: 'posterPath',
-  name: 'name',
+  name: "Game of Thrones",
+  posterPath: "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+  overview:
+      "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
 );
 
 final testMovieTable = MovieTable(
@@ -123,9 +125,10 @@ final testMovieTable = MovieTable(
 
 final testTvSeriesTable = TvSeriesTable(
   id: 1,
-  name: 'name',
-  posterPath: 'posterPath',
-  overview: 'overview',
+  name: "Game of Thrones",
+  posterPath: "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+  overview:
+      "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
 );
 
 final testMovieMap = {
@@ -137,7 +140,8 @@ final testMovieMap = {
 
 final testTvSeriesMap = {
   'id': 1,
-  'name': 'name',
-  'posterPath': 'posterPath',
-  'overview': 'overview',
+  'name': "Game of Thrones",
+  'posterPath': "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+  'overview':
+      "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
 };

@@ -1,3 +1,4 @@
+import 'package:ditonton/data/models/genre_model.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
 import 'package:ditonton/domain/entities/tv_series_season.dart';
@@ -28,7 +29,7 @@ class TvSeriesDetailResponse extends Equatable {
 
   final String backdropPath;
   final String firstAirDate;
-  final List<Genre> genres;
+  final List<GenreModel> genres;
   final int id;
   final bool inProduction;
   final List<String> languages;
@@ -94,7 +95,7 @@ class TvSeriesDetailResponse extends Equatable {
     return TvSeriesDetail(
       backdropPath: this.backdropPath,
       firstAirDate: this.firstAirDate,
-      genres: this.genres,
+      genres: this.genres.map((genre) => genre.toEntity()).toList(),
       id: this.id,
       inProduction: this.inProduction,
       languages: this.languages,

@@ -15,7 +15,7 @@ void main() {
     usecase = GetWatchListStatus(mockMovieRepository, mockTVSeriesRepository);
   });
 
-  test('should get watchlist status from repository', () async {
+  test('should get watchlist status from movie repository', () async {
     // arrange
     when(mockMovieRepository.isAddedToWatchlist(1)).thenAnswer((_) async => true);
     // act
@@ -23,4 +23,18 @@ void main() {
     // assert
     expect(result, true);
   });
+
+  test(
+    "should get watchlist status from tv series repository",
+    () async {
+      /// Arrange
+      when(mockTVSeriesRepository.isAddedToWatchlist(1)).thenAnswer((_) async => true);
+
+      /// Act
+      final result = await usecase.executeTvSeries(1);
+
+      /// Assert
+      expect(result, true);
+    },
+  );
 }

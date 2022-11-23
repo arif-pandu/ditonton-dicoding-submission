@@ -17,7 +17,7 @@ void main() {
     usecase = SaveWatchlist(mockMovieRepository, mockTVSeriesRepository);
   });
 
-  test('should save movie to the repository', () async {
+  test('should save movie to the movie repository', () async {
     // arrange
     when(mockMovieRepository.saveWatchlist(testMovieDetail)).thenAnswer((_) async => Right('Added to Watchlist'));
     // act
@@ -26,4 +26,21 @@ void main() {
     verify(mockMovieRepository.saveWatchlist(testMovieDetail));
     expect(result, Right('Added to Watchlist'));
   });
+
+  test(
+    "should save tv series to the tv series repository",
+    () async {
+      /// Arrange
+      when(mockTVSeriesRepository.saveWatchlist(testTvSeriesDetail)).thenAnswer(
+        (_) async => Right("Added to Watchlist"),
+      );
+
+      /// Act
+      final result = await usecase.executeTvSeries(testTvSeriesDetail);
+
+      /// Assert
+      verify(mockTVSeriesRepository.saveWatchlist(testTvSeriesDetail));
+      expect(result, Right("Added to Watchlist"));
+    },
+  );
 }

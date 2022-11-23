@@ -42,7 +42,7 @@ final testTvSeries = TvSeries(
 );
 
 final testMovieList = [testMovie];
-final textTvSeriesList = [testTvSeries];
+final testTvSeriesList = [testTvSeries];
 
 final testMovieDetail = MovieDetail(
   adult: false,

@@ -35,7 +35,7 @@ class MoviePage extends StatelessWidget {
           }
         }),
         SubHeading(
-          title: 'Popular',
+          title: 'Popular Movies',
           onTap: () => Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
         ),
         Consumer<MovieListNotifier>(builder: (context, data, child) {
@@ -51,7 +51,7 @@ class MoviePage extends StatelessWidget {
           }
         }),
         SubHeading(
-          title: 'Top Rated',
+          title: 'Top Rated Movies',
           onTap: () => Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
         ),
         Consumer<MovieListNotifier>(builder: (context, data, child) {

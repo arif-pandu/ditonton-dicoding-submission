@@ -2,8 +2,10 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/sub_page/movie_page.dart';
+import 'package:ditonton/presentation/pages/sub_page/tv_series.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +18,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   int _pageIndex = 0;
   static const List<Widget> listPage = [
     MoviePage(),
-    MoviePage(),
+    TvSeriesPage(),
   ];
 
   void _onTapIcon(int index) {
@@ -28,10 +30,16 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<MovieListNotifier>(context, listen: false)
-      ..fetchNowPlayingMovies()
-      ..fetchPopularMovies()
-      ..fetchTopRatedMovies());
+    Future.microtask(() {
+      Provider.of<MovieListNotifier>(context, listen: false)
+        ..fetchNowPlayingMovies()
+        ..fetchPopularMovies()
+        ..fetchTopRatedMovies();
+      Provider.of<TvSeriesListNotifier>(context, listen: false)
+        ..fetchNowPlayingTvSeries()
+        ..fetchPopularTvSeries()
+        ..fetchTopRatedTvSeries();
+    });
   }
 
   @override

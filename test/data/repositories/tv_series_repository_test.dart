@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/data/models/genre_model.dart';
+import 'package:ditonton/data/models/season_model.dart';
 import 'package:ditonton/data/models/tv_series_detail_model.dart';
 import 'package:ditonton/data/models/tv_series_model.dart';
 import 'package:ditonton/data/repositories/tv_series_repository_impl.dart';
@@ -264,7 +265,7 @@ void main() {
         popularity: 369.594,
         posterPath: "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
         seasons: [
-          Season(
+          SeasonModel(
             airDate: "2010-12-05",
             episodeCount: 64,
             id: 3627,

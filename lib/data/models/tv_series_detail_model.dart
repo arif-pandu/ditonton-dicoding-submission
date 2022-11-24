@@ -1,5 +1,5 @@
 import 'package:ditonton/data/models/genre_model.dart';
-import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/data/models/season_model.dart';
 import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
 
@@ -28,7 +28,7 @@ class TvSeriesDetailResponse extends Equatable {
     required this.voteCount,
   });
 
-  final String backdropPath;
+  final String? backdropPath;
   final String firstAirDate;
   final List<GenreModel> genres;
   final int id;
@@ -43,7 +43,7 @@ class TvSeriesDetailResponse extends Equatable {
   final String overview;
   final double popularity;
   final String posterPath;
-  final List<Season> seasons;
+  final List<SeasonModel> seasons;
   final String status;
   final double voteAverage;
   final int voteCount;
@@ -51,7 +51,7 @@ class TvSeriesDetailResponse extends Equatable {
   factory TvSeriesDetailResponse.fromJson(Map<String, dynamic> json) => TvSeriesDetailResponse(
         backdropPath: json["backdropPath"],
         firstAirDate: json["firstAirDate"],
-        genres: json["genres"],
+        genres: List<GenreModel>.from(json["genres"].map((x) => GenreModel.fromJson(x))),
         id: json["id"],
         inProduction: json["inProduction"],
         languages: json["languages"],
@@ -62,34 +62,34 @@ class TvSeriesDetailResponse extends Equatable {
         originalLanguage: json["originalLanguage"],
         originalName: json["originalName"],
         overview: json["overview"],
-        popularity: json["popularity"],
+        popularity: json["popularity"].toDouble(),
         posterPath: json["posterPath"],
-        seasons: json["seasons"],
+        seasons: List<SeasonModel>.from(json["seasons"].map((x) => SeasonModel.fromJson(x))),
         status: json["status"],
-        voteAverage: json["voteAverage"],
+        voteAverage: json["voteAverage"].toDouble(),
         voteCount: json['voteCount'],
       );
 
   Map<String, dynamic> toJson() => {
-        "backdropPath": backdropPath,
-        "firstAirDate": firstAirDate,
-        "genres": genres,
+        "backdrop_ath": backdropPath,
+        "first_air_date": firstAirDate,
+        "genres": List<dynamic>.from(genres.map((e) => e.toJson())),
         "id": id,
-        "inProduction": inProduction,
+        "in_production": inProduction,
         "languages": languages,
         "name": name,
-        "numberOfEpisodes": numberOfEpisodes,
-        "numberOfSeasons": numberOfSeasons,
-        "originCountry": originCountry,
-        "originalLanguage": originalLanguage,
-        "originalName": originalName,
+        "number_of_episodes": numberOfEpisodes,
+        "number_of_seasons": numberOfSeasons,
+        "origin_country": originCountry,
+        "original_language": originalLanguage,
+        "original_name": originalName,
         "overview": overview,
         "popularity": popularity,
-        "posterPath": posterPath,
-        "seasons": seasons,
+        "poster_path": posterPath,
+        "seasons": List<dynamic>.from(seasons.map((e) => e.toJson())),
         "status": status,
-        "voteAverage": voteAverage,
-        "voteCount": voteCount,
+        "vote_average": voteAverage,
+        "vote_count": voteCount,
       };
 
   TvSeriesDetail toEntity() {
@@ -109,7 +109,7 @@ class TvSeriesDetailResponse extends Equatable {
       overview: this.overview,
       popularity: this.popularity,
       posterPath: this.posterPath,
-      seasons: this.seasons,
+      seasons: this.seasons.map((season) => season.toEntity()).toList(),
       status: this.status,
       voteAverage: this.voteAverage,
       voteCount: this.voteCount,

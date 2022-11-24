@@ -25,7 +25,7 @@ class TvSeriesDetail extends Equatable {
     required this.voteCount,
   });
 
-  final String backdropPath;
+  final String? backdropPath;
   final String firstAirDate;
   final List<Genre> genres;
   final int id;

@@ -1,7 +1,8 @@
 import 'package:ditonton/data/models/genre_model.dart';
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
-import 'package:ditonton/domain/entities/tv_series_season.dart';
+
 import 'package:equatable/equatable.dart';
 
 class TvSeriesDetailResponse extends Equatable {

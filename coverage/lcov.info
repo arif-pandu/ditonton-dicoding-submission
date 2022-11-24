@@ -359,8 +359,7 @@ LF:23
 LH:18
 end_of_record
 SF:lib/data/models/tv_series_detail_model.dart
-DA:8,1
-DA:50,0
+DA:9,1
 DA:51,0
 DA:52,0
 DA:53,0
@@ -380,7 +379,7 @@ DA:66,0
 DA:67,0
 DA:68,0
 DA:69,0
-DA:72,0
+DA:70,0
 DA:73,0
 DA:74,0
 DA:75,0
@@ -400,12 +399,12 @@ DA:88,0
 DA:89,0
 DA:90,0
 DA:91,0
-DA:94,1
+DA:92,0
 DA:95,1
 DA:96,1
 DA:97,1
-DA:98,5
-DA:99,1
+DA:98,1
+DA:99,5
 DA:100,1
 DA:101,1
 DA:102,1
@@ -421,7 +420,7 @@ DA:111,1
 DA:112,1
 DA:113,1
 DA:114,1
-DA:118,0
+DA:115,1
 DA:119,0
 DA:120,0
 DA:121,0
@@ -442,6 +441,7 @@ DA:135,0
 DA:136,0
 DA:137,0
 DA:138,0
+DA:139,0
 LF:83
 LH:22
 end_of_record
@@ -656,7 +656,7 @@ DA:13,6
 LF:3
 LH:3
 end_of_record
-SF:lib/domain/entities/tv_series_season.dart
+SF:lib/domain/entities/season.dart
 DA:4,4
 DA:22,1
 DA:23,1
@@ -882,14 +882,14 @@ DA:12,2
 LF:3
 LH:3
 end_of_record
-SF:lib/domain/usecases/search_movies.dart
+SF:lib/domain/usecases/search_tv_series.dart
 DA:9,1
 DA:11,1
 DA:12,2
 LF:3
 LH:3
 end_of_record
-SF:lib/domain/usecases/search_tv_series.dart
+SF:lib/domain/usecases/search_movies.dart
 DA:9,1
 DA:11,1
 DA:12,2

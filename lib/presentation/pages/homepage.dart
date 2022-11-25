@@ -3,7 +3,7 @@ import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/sub_page/movie_page.dart';
 import 'package:ditonton/presentation/pages/sub_page/tv_series.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
+import 'package:ditonton/presentation/pages/movie/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:flutter/material.dart';

@@ -4,7 +4,7 @@ import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:ditonton/presentation/widgets/sub_heading.dart';
-import 'package:ditonton/presentation/widgets/tv_series_list_builder.dart';
+import 'package:ditonton/presentation/widgets/list_builder_tv_series.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

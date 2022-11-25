@@ -1,6 +1,6 @@
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/presentation/pages/home/about_page.dart';
+import 'package:ditonton/presentation/pages/home/search_page.dart';
 import 'package:ditonton/presentation/pages/sub_page/movie_page.dart';
 import 'package:ditonton/presentation/pages/sub_page/tv_series.dart';
 import 'package:ditonton/presentation/pages/movie/watchlist_movies_page.dart';

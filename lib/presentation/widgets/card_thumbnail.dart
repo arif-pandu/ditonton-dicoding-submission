@@ -4,10 +4,10 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/presentation/pages/movie/movie_detail_page.dart';
 import 'package:flutter/material.dart';
 
-class MovieCard extends StatelessWidget {
+class CardThumbnail extends StatelessWidget {
   final Movie movie;
 
-  MovieCard(this.movie);
+  CardThumbnail(this.movie);
 
   @override
   Widget build(BuildContext context) {

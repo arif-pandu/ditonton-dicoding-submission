@@ -1,6 +1,6 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:ditonton/presentation/widgets/movie_card_list.dart';
+import 'package:ditonton/presentation/widgets/card_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,9 +15,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRatedMovies());
+    Future.microtask(() => Provider.of<TopRatedMoviesNotifier>(context, listen: false).fetchTopRatedMovies());
   }
 
   @override
@@ -38,7 +36,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final movie = data.movies[index];
-                  return MovieCard(movie);
+                  return CardThumbnail(movie);
                 },
                 itemCount: data.movies.length,
               );

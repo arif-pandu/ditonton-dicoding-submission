@@ -5,6 +5,10 @@ import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/presentation/widgets/detail_page/detail_content.dart';
+import 'package:ditonton/presentation/widgets/detail_page/recommendation_movie.dart';
+import 'package:ditonton/presentation/widgets/detail_page/show_duration.dart';
+import 'package:ditonton/presentation/widgets/detail_page/show_genre.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -42,9 +46,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             final movie = provider.movie;
             return SafeArea(
               child: DetailContent(
-                movie,
-                provider.movieRecommendations,
-                provider.isAddedToWatchlist,
+                contentCategory: ContentCategory.Film,
+                imageUrl: "https://image.tmdb.org/t/p/w500${movie.posterPath}",
+                isAddedToWatchlist: provider.isAddedToWatchlist,
+                onTapWatchlist: () async {},
+                overview: movie.overview,
+                voteAverage: movie.voteAverage,
+                genres: movie.genres,
+                runtime: movie.runtime,
               ),
             );
           } else {
@@ -56,12 +65,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   }
 }
 
-class DetailContent extends StatelessWidget {
+class DetailContentttt extends StatelessWidget {
   final MovieDetail movie;
-  final List<Movie> recommendations;
+
   final bool isAddedWatchlist;
 
-  DetailContent(this.movie, this.recommendations, this.isAddedWatchlist);
+  DetailContentttt(this.movie, this.isAddedWatchlist);
 
   @override
   Widget build(BuildContext context) {
@@ -137,10 +146,10 @@ class DetailContent extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              _showGenres(movie.genres),
+                              showGenres(movie.genres),
                             ),
                             Text(
-                              _showDuration(movie.runtime),
+                              showDuration(movie.runtime),
                             ),
                             Row(
                               children: [
@@ -169,54 +178,7 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            Consumer<MovieDetailNotifier>(
-                              builder: (context, data, child) {
-                                if (data.recommendationState == RequestState.Loading) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (data.recommendationState == RequestState.Error) {
-                                  return Text(data.message);
-                                } else if (data.recommendationState == RequestState.Loaded) {
-                                  return Container(
-                                    height: 150,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        final movie = recommendations[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                MovieDetailPage.ROUTE_NAME,
-                                                arguments: movie.id,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                                                placeholder: (context, url) => Center(
-                                                  child: CircularProgressIndicator(),
-                                                ),
-                                                errorWidget: (context, url, error) => Icon(Icons.error),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      itemCount: recommendations.length,
-                                    ),
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
+                            RecommendationMovieList(),
                           ],
                         ),
                       ),
@@ -253,29 +215,5 @@ class DetailContent extends StatelessWidget {
         )
       ],
     );
-  }
-
-  String _showGenres(List<Genre> genres) {
-    String result = '';
-    for (var genre in genres) {
-      result += genre.name + ', ';
-    }
-
-    if (result.isEmpty) {
-      return result;
-    }
-
-    return result.substring(0, result.length - 2);
-  }
-
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
   }
 }

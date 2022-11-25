@@ -1,5 +1,6 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/provider/tv_series_detail_notifier.dart';
+import 'package:ditonton/presentation/widgets/detail_page/detail_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -36,7 +37,20 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
               child: CircularProgressIndicator(),
             );
           } else if (provider.tvSeriesState == RequestState.Loaded) {
-            return Container();
+            final tvSeries = provider.tvSeries;
+            return SafeArea(
+              child: DetailContent(
+                contentCategory: ContentCategory.TvSeries,
+                imageUrl: "https://image.tmdb.org/t/p/w500${tvSeries.posterPath}",
+                isAddedToWatchlist: provider.isAddedToWatchlist,
+                onTapWatchlist: () async {},
+                overview: tvSeries.overview,
+                voteAverage: tvSeries.voteAverage,
+                genres: tvSeries.genres,
+                numOfSeasons: tvSeries.numberOfSeasons,
+                numOfEps: tvSeries.numberOfEpisodes,
+              ),
+            );
           } else {
             return Text(provider.message);
           }

@@ -2,6 +2,8 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/tv_series/popular_tv_series_page.dart';
+import 'package:ditonton/presentation/pages/tv_series/top_rated_tv_series_page.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:ditonton/presentation/widgets/sub_heading.dart';
 import 'package:ditonton/presentation/widgets/list_builder_tv_series.dart';
@@ -32,7 +34,7 @@ class TvSeriesPage extends StatelessWidget {
       }),
       SubHeading(
         title: 'Popular Tv Series',
-        onTap: () => Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
+        onTap: () => Navigator.pushNamed(context, PopularTVSeriesPage.ROUTE_NAME),
       ),
       Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
         final state = data.populartvSeriesState;
@@ -48,7 +50,7 @@ class TvSeriesPage extends StatelessWidget {
       }),
       SubHeading(
         title: 'Top Rated Tv Series',
-        onTap: () => Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
+        onTap: () => Navigator.pushNamed(context, TopRatedTvSeriesPage.ROUTE_NAME),
       ),
       Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
         final state = data.topRatedTvSeriesState;

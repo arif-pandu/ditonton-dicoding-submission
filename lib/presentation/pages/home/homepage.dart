@@ -9,12 +9,12 @@ import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeMoviePage extends StatefulWidget {
+class HomePage extends StatefulWidget {
   @override
   _HomeMoviePageState createState() => _HomeMoviePageState();
 }
 
-class _HomeMoviePageState extends State<HomeMoviePage> {
+class _HomeMoviePageState extends State<HomePage> {
   int _pageIndex = 0;
   static const List<Widget> listPage = [
     MoviePage(),

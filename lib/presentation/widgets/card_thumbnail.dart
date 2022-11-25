@@ -5,9 +5,17 @@ import 'package:ditonton/presentation/pages/movie/movie_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class CardThumbnail extends StatelessWidget {
-  final Movie movie;
+  CardThumbnail(
+    this.id,
+    this.posterPath,
+    this.name,
+    this.overview,
+  );
 
-  CardThumbnail(this.movie);
+  final int id;
+  final String? posterPath;
+  final String? name;
+  final String? overview;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +26,7 @@ class CardThumbnail extends StatelessWidget {
           Navigator.pushNamed(
             context,
             MovieDetailPage.ROUTE_NAME,
-            arguments: movie.id,
+            arguments: id,
           );
         },
         child: Stack(
@@ -35,14 +43,14 @@ class CardThumbnail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      movie.title ?? '-',
+                      name ?? "-",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: kHeading6,
                     ),
                     SizedBox(height: 16),
                     Text(
-                      movie.overview ?? '-',
+                      overview ?? "-",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -57,7 +65,7 @@ class CardThumbnail extends StatelessWidget {
               ),
               child: ClipRRect(
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
+                  imageUrl: '$BASE_IMAGE_URL$posterPath',
                   width: 80,
                   placeholder: (context, url) => Center(
                     child: CircularProgressIndicator(),

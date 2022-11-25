@@ -47,7 +47,12 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAwa
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final movie = data.watchlistMovies[index];
-                  return CardThumbnail(movie);
+                  return CardThumbnail(
+                    movie.id,
+                    movie.posterPath,
+                    movie.title,
+                    movie.overview,
+                  );
                 },
                 itemCount: data.watchlistMovies.length,
               );

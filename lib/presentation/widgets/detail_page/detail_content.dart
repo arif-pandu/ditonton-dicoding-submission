@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/presentation/widgets/detail_page/recommendation_movie.dart';
 import 'package:ditonton/presentation/widgets/detail_page/recommendation_tv_series.dart';
+import 'package:ditonton/presentation/widgets/detail_page/season_list_tv_series.dart';
 import 'package:ditonton/presentation/widgets/detail_page/show_duration.dart';
 import 'package:ditonton/presentation/widgets/detail_page/show_genre.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class DetailContent extends StatelessWidget {
   const DetailContent({
     required this.contentCategory,
+    required this.name,
     required this.imageUrl,
     required this.isAddedToWatchlist,
     required this.onTapWatchlist,
@@ -24,9 +27,11 @@ class DetailContent extends StatelessWidget {
     this.runtime,
     this.numOfSeasons,
     this.numOfEps,
+    this.seasonList,
   });
 
   final ContentCategory contentCategory;
+  final String name;
   final String imageUrl;
   final bool isAddedToWatchlist;
   final void Function() onTapWatchlist;
@@ -37,6 +42,7 @@ class DetailContent extends StatelessWidget {
   final int? runtime;
   final int? numOfSeasons;
   final int? numOfEps;
+  final List<Season>? seasonList;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +81,7 @@ class DetailContent extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "TITLE",
+                              name,
                               style: kHeading5,
                             ),
                             Text(showGenres(genres)),
@@ -122,6 +128,22 @@ class DetailContent extends StatelessWidget {
                               overview,
                             ),
                             SizedBox(height: 16),
+                            () {
+                              if (contentCategory == ContentCategory.TvSeries) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Seasons',
+                                      style: kHeading6,
+                                    ),
+                                    SeasonList(listSeason: seasonList!),
+                                  ],
+                                );
+                              } else {
+                                return SizedBox.shrink();
+                              }
+                            }(),
                             Text(
                               'Recommendations',
                               style: kHeading6,
@@ -152,6 +174,20 @@ class DetailContent extends StatelessWidget {
                 ),
               );
             },
+            minChildSize: 0.25,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            backgroundColor: kRichBlack,
+            foregroundColor: Colors.white,
+            child: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
           ),
         ),
       ],

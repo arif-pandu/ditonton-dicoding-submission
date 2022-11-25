@@ -41,14 +41,38 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
             return SafeArea(
               child: DetailContent(
                 contentCategory: ContentCategory.TvSeries,
+                name: tvSeries.name,
                 imageUrl: "https://image.tmdb.org/t/p/w500${tvSeries.posterPath}",
                 isAddedToWatchlist: provider.isAddedToWatchlist,
-                onTapWatchlist: () async {},
+                onTapWatchlist: () async {
+                  if (!provider.isAddedToWatchlist) {
+                    await provider.addWatchlist(tvSeries);
+                  } else {
+                    await provider.removeFromWatchlist(tvSeries);
+                  }
+
+                  final message = provider.watchListMessage;
+
+                  if (message == TvSeriesDetailNotifier.watchlistAddSuccessMessage ||
+                      message == TvSeriesDetailNotifier.watchlistRemoveSuccessMessage) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text(message),
+                        );
+                      },
+                    );
+                  }
+                },
                 overview: tvSeries.overview,
                 voteAverage: tvSeries.voteAverage,
                 genres: tvSeries.genres,
                 numOfSeasons: tvSeries.numberOfSeasons,
                 numOfEps: tvSeries.numberOfEpisodes,
+                seasonList: tvSeries.seasons,
               ),
             );
           } else {

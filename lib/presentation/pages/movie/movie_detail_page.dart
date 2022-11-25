@@ -47,9 +47,32 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             return SafeArea(
               child: DetailContent(
                 contentCategory: ContentCategory.Film,
+                name: movie.title,
                 imageUrl: "https://image.tmdb.org/t/p/w500${movie.posterPath}",
                 isAddedToWatchlist: provider.isAddedToWatchlist,
-                onTapWatchlist: () async {},
+                onTapWatchlist: () async {
+                  if (!provider.isAddedToWatchlist) {
+                    await provider.addWatchlist(movie);
+                  } else {
+                    await provider.removeFromWatchlist(movie);
+                  }
+
+                  final message = provider.watchlistMessage;
+
+                  if (message == MovieDetailNotifier.watchlistAddSuccessMessage ||
+                      message == MovieDetailNotifier.watchlistRemoveSuccessMessage) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text(message),
+                        );
+                      },
+                    );
+                  }
+                },
                 overview: movie.overview,
                 voteAverage: movie.voteAverage,
                 genres: movie.genres,
@@ -61,159 +84,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           }
         },
       ),
-    );
-  }
-}
-
-class DetailContentttt extends StatelessWidget {
-  final MovieDetail movie;
-
-  final bool isAddedWatchlist;
-
-  DetailContentttt(this.movie, this.isAddedWatchlist);
-
-  @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    return Stack(
-      children: [
-        CachedNetworkImage(
-          imageUrl: 'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-          width: screenWidth,
-          placeholder: (context, url) => Center(
-            child: CircularProgressIndicator(),
-          ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        ),
-        Container(
-          margin: const EdgeInsets.only(top: 48 + 8),
-          child: DraggableScrollableSheet(
-            builder: (context, scrollController) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: kRichBlack,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-                ),
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  top: 16,
-                  right: 16,
-                ),
-                child: Stack(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      child: SingleChildScrollView(
-                        controller: scrollController,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              movie.title,
-                              style: kHeading5,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                if (!isAddedWatchlist) {
-                                  await Provider.of<MovieDetailNotifier>(context, listen: false).addWatchlist(movie);
-                                } else {
-                                  await Provider.of<MovieDetailNotifier>(context, listen: false)
-                                      .removeFromWatchlist(movie);
-                                }
-
-                                final message =
-                                    Provider.of<MovieDetailNotifier>(context, listen: false).watchlistMessage;
-
-                                if (message == MovieDetailNotifier.watchlistAddSuccessMessage ||
-                                    message == MovieDetailNotifier.watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(message),
-                                        );
-                                      });
-                                }
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  isAddedWatchlist ? Icon(Icons.check) : Icon(Icons.add),
-                                  Text('Watchlist'),
-                                ],
-                              ),
-                            ),
-                            Text(
-                              showGenres(movie.genres),
-                            ),
-                            Text(
-                              showDuration(movie.runtime),
-                            ),
-                            Row(
-                              children: [
-                                RatingBarIndicator(
-                                  rating: movie.voteAverage / 2,
-                                  itemCount: 5,
-                                  itemBuilder: (context, index) => Icon(
-                                    Icons.star,
-                                    color: kMikadoYellow,
-                                  ),
-                                  itemSize: 24,
-                                ),
-                                Text('${movie.voteAverage}')
-                              ],
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              'Overview',
-                              style: kHeading6,
-                            ),
-                            Text(
-                              movie.overview,
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              'Recommendations',
-                              style: kHeading6,
-                            ),
-                            RecommendationMovieList(),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        color: Colors.white,
-                        height: 4,
-                        width: 48,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-            // initialChildSize: 0.5,
-            minChildSize: 0.25,
-            // maxChildSize: 1.0,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            backgroundColor: kRichBlack,
-            foregroundColor: Colors.white,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-        )
-      ],
     );
   }
 }

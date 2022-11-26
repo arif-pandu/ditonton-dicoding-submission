@@ -76,12 +76,12 @@ void main() {
   });
 
   group('get Top Rated Movies', () {
-    final tMovieList = MovieResponse.fromJson(json.decode(readJson('dummy_data/top_rated.json'))).movieList;
+    final tMovieList = MovieResponse.fromJson(json.decode(readJson('dummy_data/movie_top_rated.json'))).movieList;
 
     test('should return list of movies when response code is 200 ', () async {
       // arrange
       when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
-          .thenAnswer((_) async => http.Response(readJson('dummy_data/top_rated.json'), 200));
+          .thenAnswer((_) async => http.Response(readJson('dummy_data/movie_top_rated.json'), 200));
       // act
       final result = await dataSource.getTopRatedMovies();
       // assert

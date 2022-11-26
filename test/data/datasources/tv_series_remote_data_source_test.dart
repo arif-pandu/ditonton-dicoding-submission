@@ -67,4 +67,50 @@ void main() {
       );
     },
   );
+
+  group(
+    "get popular tv series",
+    () {
+      final tTvSeriesList =
+          TvSeriesResponse.fromJson(json.decode(readJson("dummy_data/tv_series_popular.json"))).tvSeriesList;
+
+      test(
+        "should return list of tv series when response code is 200(success)",
+        () async {
+          /// Arrange
+          when(mockHttpClient.get(Uri.parse("$BASE_URL/tv/popular?$API_KEY"))).thenAnswer(
+            (_) async => http.Response(
+              readJson("dummy_data/tv_series_popular.json"),
+              200,
+              headers: {
+                HttpHeaders.contentTypeHeader: 'application/json; charset=utf-8',
+              },
+            ),
+          );
+
+          /// Act
+          final result = await dataSource.getPopularTvSeries();
+
+          /// Assert
+          expect(result, tTvSeriesList);
+        },
+      );
+
+      test(
+        "should throw a ServeException when th resopnse code is not 200",
+        () async {
+          /// Arrange
+          when(mockHttpClient.get(Uri.parse("$BASE_URL/tv/popular?$API_KEY"))).thenAnswer(
+            (_) async => http.Response("Not Found", 404),
+          );
+
+          /// Act
+          final call = dataSource.getPopularTvSeries();
+
+          /// Assert
+          expect(() => call, throwsA(isA<ServerException>()));
+        },
+      );
+    },
+  );
 }

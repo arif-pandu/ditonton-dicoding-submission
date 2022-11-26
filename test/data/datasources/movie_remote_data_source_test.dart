@@ -52,12 +52,12 @@ void main() {
   });
 
   group('get Popular Movies', () {
-    final tMovieList = MovieResponse.fromJson(json.decode(readJson('dummy_data/popular.json'))).movieList;
+    final tMovieList = MovieResponse.fromJson(json.decode(readJson('dummy_data/movie_popular.json'))).movieList;
 
     test('should return list of movies when response is success (200)', () async {
       // arrange
       when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
-          .thenAnswer((_) async => http.Response(readJson('dummy_data/popular.json'), 200));
+          .thenAnswer((_) async => http.Response(readJson('dummy_data/movie_popular.json'), 200));
       // act
       final result = await dataSource.getPopularMovies();
       // assert

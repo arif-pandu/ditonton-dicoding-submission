@@ -9,9 +9,6 @@ import 'package:ditonton/presentation/widgets/detail_page/season_list_tv_series.
 import 'package:ditonton/presentation/widgets/detail_page/show_duration.dart';
 import 'package:ditonton/presentation/widgets/detail_page/show_genre.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetailContent extends StatelessWidget {

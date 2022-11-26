@@ -48,6 +48,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAwa
                 itemBuilder: (context, index) {
                   final movie = data.watchlistMovies[index];
                   return CardThumbnail(
+                    ContentCategory.Film,
                     movie.id,
                     movie.posterPath,
                     movie.title,

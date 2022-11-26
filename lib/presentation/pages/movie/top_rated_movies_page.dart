@@ -37,6 +37,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
                 itemBuilder: (context, index) {
                   final movie = data.movies[index];
                   return CardThumbnail(
+                    ContentCategory.Film,
                     movie.id,
                     movie.posterPath,
                     movie.title,

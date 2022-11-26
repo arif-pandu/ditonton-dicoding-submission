@@ -40,7 +40,8 @@ class _PopularTVSeriesPageState extends State<PopularTVSeriesPage> {
                 itemBuilder: (context, index) {
                   final tvSeries = data.tvSeries[index];
                   return CardThumbnail(
-                    tvSeries.id!,
+                    ContentCategory.TvSeries,
+                    tvSeries.id,
                     tvSeries.posterPath,
                     tvSeries.name,
                     tvSeries.overview,
@@ -50,7 +51,7 @@ class _PopularTVSeriesPageState extends State<PopularTVSeriesPage> {
               );
             } else {
               return Center(
-                key: Key("erroe_message"),
+                key: Key("error_message"),
                 child: Text(data.message),
               );
             }

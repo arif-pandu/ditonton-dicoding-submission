@@ -49,6 +49,7 @@ class SearchPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final movie = data.searchResult[index];
                         return CardThumbnail(
+                          ContentCategory.Film,
                           movie.id,
                           movie.posterPath,
                           movie.title,

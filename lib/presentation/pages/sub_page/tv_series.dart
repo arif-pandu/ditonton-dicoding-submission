@@ -1,5 +1,5 @@
-import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/presentation/pages/tv_series/now_playing_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/tv_series/popular_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/tv_series/top_rated_tv_series_page.dart';
 import 'package:ditonton/presentation/provider/tv_series_list_notifier.dart';
@@ -14,9 +14,9 @@ class TvSeriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(
-        'Airing Today',
-        style: kHeading6,
+      SubHeading(
+        title: "Airing Today",
+        onTap: () => Navigator.pushNamed(context, NowPlayingTVSeriesPage.ROUTE_NAME),
       ),
       Consumer<TvSeriesListNotifier>(builder: (context, data, child) {
         final state = data.nowPlayingState;

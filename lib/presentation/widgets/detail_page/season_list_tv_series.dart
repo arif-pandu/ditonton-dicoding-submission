@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/season.dart';
 import 'package:flutter/material.dart';
 
@@ -19,19 +20,36 @@ class SeasonList extends StatelessWidget {
         itemCount: listSeason.length,
         itemBuilder: (context, index) {
           final season = listSeason[index];
+
           return Padding(
             padding: EdgeInsets.all(4),
             child: InkWell(
               onTap: () {},
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: CachedNetworkImage(
-                  imageUrl: 'https://image.tmdb.org/t/p/w500${season.posterPath}',
-                  placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
+                child: () {
+                  if (season.posterPath != null) {
+                    return CachedNetworkImage(
+                      imageUrl: 'https://image.tmdb.org/t/p/w500${season.posterPath}',
+                      placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    );
+                  } else {
+                    return Container(
+                      width: 100,
+                      height: 150,
+                      color: Colors.white,
+                      child: Center(
+                        child: Text(
+                          season.name,
+                          style: kSubtitle.copyWith(color: kRichBlack),
+                        ),
+                      ),
+                    );
+                  }
+                }(),
               ),
             ),
           );

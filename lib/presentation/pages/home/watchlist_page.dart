@@ -61,37 +61,6 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Consumer<WatchlistTvSeriesNotifier>(
-                builder: (context, data, child) {
-                  if (data.watchlistState == RequestState.Loading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (data.watchlistState == RequestState.Loaded) {
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        final tvSeries = data.watchlistTvSeries[index];
-                        return CardThumbnail(
-                          ContentCategory.Film,
-                          tvSeries.id,
-                          tvSeries.posterPath,
-                          tvSeries.name,
-                          tvSeries.overview,
-                        );
-                      },
-                      itemCount: data.watchlistTvSeries.length,
-                    );
-                  } else {
-                    return Center(
-                      key: Key('error_message'),
-                      child: Text(data.message),
-                    );
-                  }
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
               child: Consumer<WatchlistMovieNotifier>(
                 builder: (context, data, child) {
                   if (data.watchlistState == RequestState.Loading) {
@@ -111,6 +80,37 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
                         );
                       },
                       itemCount: data.watchlistMovies.length,
+                    );
+                  } else {
+                    return Center(
+                      key: Key('error_message'),
+                      child: Text(data.message),
+                    );
+                  }
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Consumer<WatchlistTvSeriesNotifier>(
+                builder: (context, data, child) {
+                  if (data.watchlistState == RequestState.Loading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (data.watchlistState == RequestState.Loaded) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        final tvSeries = data.watchlistTvSeries[index];
+                        return CardThumbnail(
+                          ContentCategory.TvSeries,
+                          tvSeries.id,
+                          tvSeries.posterPath,
+                          tvSeries.name,
+                          tvSeries.overview,
+                        );
+                      },
+                      itemCount: data.watchlistTvSeries.length,
                     );
                   } else {
                     return Center(

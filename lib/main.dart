@@ -6,7 +6,7 @@ import 'package:ditonton/presentation/pages/home/homepage.dart';
 import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/home/search_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
-import 'package:ditonton/presentation/pages/home/watchlist_movies_page.dart';
+import 'package:ditonton/presentation/pages/home/watchlist_page.dart';
 import 'package:ditonton/presentation/pages/tv_series/now_playing_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/tv_series/popular_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/tv_series/top_rated_tv_series_page.dart';

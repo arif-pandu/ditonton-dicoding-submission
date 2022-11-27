@@ -68,7 +68,7 @@ void main() {
     originalName: "Game of Thrones",
   );
 
-  final tTvSeries = <TvSeries>[];
+  final tTvSeries = <TvSeries>[tTvSeri];
 
   void _arrangeUsecase() {
     when(mockGetTvSeriesDetail.execute(tId)).thenAnswer((_) async => Right(testTvSeriesDetail));

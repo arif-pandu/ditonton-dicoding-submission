@@ -46,13 +46,23 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
           title: Text("Watchlist"),
           bottom: TabBar(
             tabs: [
-              Container(
-                margin: EdgeInsets.only(bottom: 5),
-                child: Icon(Icons.movie_rounded),
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 5),
+                    child: Icon(Icons.movie_rounded),
+                  ),
+                  Text("Movie"),
+                ],
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 5),
-                child: Icon(Icons.tv_rounded),
+              Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 5),
+                    child: Icon(Icons.tv_rounded),
+                  ),
+                  Text("Tv Series"),
+                ],
               ),
             ],
           ),

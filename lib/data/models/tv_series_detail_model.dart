@@ -31,7 +31,7 @@ class TvSeriesDetailResponse extends Equatable {
   final String firstAirDate;
   final List<GenreModel> genres;
   final int id;
-  final bool inProduction;
+  final bool? inProduction;
   final List<String> languages;
   final String name;
   final int numberOfEpisodes;
@@ -41,14 +41,14 @@ class TvSeriesDetailResponse extends Equatable {
   final String originalName;
   final String overview;
   final double popularity;
-  final String posterPath;
+  final String? posterPath;
   final List<SeasonModel> seasons;
   final String status;
   final double voteAverage;
   final int voteCount;
 
   factory TvSeriesDetailResponse.fromJson(Map<String, dynamic> json) => TvSeriesDetailResponse(
-        backdropPath: json["backdro_path"],
+        backdropPath: json["backdrop_path"],
         firstAirDate: json["first_air_date"],
         genres: List<GenreModel>.from(json["genres"].map((x) => GenreModel.fromJson(x))),
         id: json["id"],

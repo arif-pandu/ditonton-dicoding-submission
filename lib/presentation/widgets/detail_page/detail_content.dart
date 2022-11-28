@@ -29,7 +29,7 @@ class DetailContent extends StatelessWidget {
 
   final ContentCategory contentCategory;
   final String name;
-  final String imageUrl;
+  final String? imageUrl;
   final bool isAddedToWatchlist;
   final void Function() onTapWatchlist;
   final List<Genre> genres;
@@ -46,14 +46,23 @@ class DetailContent extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
-        CachedNetworkImage(
-          imageUrl: imageUrl,
-          width: screenWidth,
-          placeholder: (context, url) => Center(
-            child: CircularProgressIndicator(),
-          ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
-        ),
+        () {
+          if (imageUrl == null) {
+            return Container(
+              color: Colors.white,
+              child: Center(child: Text("NO Image")),
+            );
+          } else {
+            return CachedNetworkImage(
+              imageUrl: imageUrl!,
+              width: screenWidth,
+              placeholder: (context, url) => Center(
+                child: CircularProgressIndicator(),
+              ),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            );
+          }
+        }(),
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
           child: DraggableScrollableSheet(

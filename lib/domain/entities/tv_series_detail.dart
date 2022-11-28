@@ -29,7 +29,7 @@ class TvSeriesDetail extends Equatable {
   final String firstAirDate;
   final List<Genre> genres;
   final int id;
-  final bool inProduction;
+  final bool? inProduction;
   final List<String> languages;
   final String name;
   final int numberOfEpisodes;
@@ -39,7 +39,7 @@ class TvSeriesDetail extends Equatable {
   final String originalName;
   final String overview;
   final double popularity;
-  final String posterPath;
+  final String? posterPath;
   final List<Season> seasons;
   final String status;
   final double voteAverage;

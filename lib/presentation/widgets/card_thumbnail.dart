@@ -67,14 +67,23 @@ class CardThumbnail extends StatelessWidget {
                 bottom: 16,
               ),
               child: ClipRRect(
-                child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL$posterPath',
-                  width: 80,
-                  placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                ),
+                child: () {
+                  if (posterPath == null) {
+                    return Container(
+                      color: Colors.white,
+                      width: 80,
+                    );
+                  } else {
+                    return CachedNetworkImage(
+                      imageUrl: '$BASE_IMAGE_URL$posterPath',
+                      width: 80,
+                      placeholder: (context, url) => Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    );
+                  }
+                }(),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
             ),

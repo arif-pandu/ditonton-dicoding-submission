@@ -9,7 +9,6 @@ class TVSeriesModel extends Equatable {
     required this.backdropPath,
     required this.voteAverage,
     required this.overview,
-    required this.firstAirDate,
     required this.originCountry,
     required this.genreIds,
     required this.originalLanguage,
@@ -24,7 +23,6 @@ class TVSeriesModel extends Equatable {
   final String? backdropPath;
   final double voteAverage;
   final String overview;
-  final String firstAirDate;
   final List<String> originCountry;
   final List<int> genreIds;
   final String originalLanguage;
@@ -39,7 +37,6 @@ class TVSeriesModel extends Equatable {
         backdropPath: json["backdrop_path"],
         voteAverage: json["vote_average"].toDouble(),
         overview: json["overview"],
-        firstAirDate: json["first_air_date"],
         originCountry: List<String>.from(json["origin_country"]),
         genreIds: List<int>.from(json["genre_ids"]),
         originalLanguage: json["original_language"],
@@ -55,7 +52,6 @@ class TVSeriesModel extends Equatable {
         "backdrop_path": backdropPath,
         "vote_average": voteAverage,
         "overview": overview,
-        "first_air_date": firstAirDate,
         "origin_country": originCountry,
         "genre_ids": List<dynamic>.from(genreIds.map((e) => e)),
         "original_language": originalLanguage,
@@ -72,7 +68,6 @@ class TVSeriesModel extends Equatable {
       backdropPath: this.backdropPath,
       voteAverage: this.voteAverage,
       overview: this.overview,
-      firstAirDate: this.firstAirDate,
       originCountry: this.originCountry,
       genreIds: this.genreIds,
       originalLanguage: this.originalLanguage,
@@ -90,7 +85,6 @@ class TVSeriesModel extends Equatable {
         backdropPath,
         voteAverage,
         overview,
-        firstAirDate,
         originCountry,
         genreIds,
         originalLanguage,

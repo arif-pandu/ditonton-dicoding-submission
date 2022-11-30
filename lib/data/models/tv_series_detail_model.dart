@@ -7,7 +7,6 @@ import 'package:equatable/equatable.dart';
 class TvSeriesDetailResponse extends Equatable {
   TvSeriesDetailResponse({
     required this.backdropPath,
-    required this.firstAirDate,
     required this.genres,
     required this.id,
     required this.inProduction,
@@ -28,7 +27,6 @@ class TvSeriesDetailResponse extends Equatable {
   });
 
   final String? backdropPath;
-  final String firstAirDate;
   final List<GenreModel> genres;
   final int id;
   final bool? inProduction;
@@ -49,7 +47,6 @@ class TvSeriesDetailResponse extends Equatable {
 
   factory TvSeriesDetailResponse.fromJson(Map<String, dynamic> json) => TvSeriesDetailResponse(
         backdropPath: json["backdrop_path"],
-        firstAirDate: json["first_air_date"],
         genres: List<GenreModel>.from(json["genres"].map((x) => GenreModel.fromJson(x))),
         id: json["id"],
         inProduction: json["in_production"],
@@ -71,7 +68,6 @@ class TvSeriesDetailResponse extends Equatable {
 
   Map<String, dynamic> toJson() => {
         "backdrop_ath": backdropPath,
-        "first_air_date": firstAirDate,
         "genres": List<dynamic>.from(genres.map((e) => e.toJson())),
         "id": id,
         "in_production": inProduction,
@@ -94,7 +90,6 @@ class TvSeriesDetailResponse extends Equatable {
   TvSeriesDetail toEntity() {
     return TvSeriesDetail(
       backdropPath: this.backdropPath,
-      firstAirDate: this.firstAirDate,
       genres: this.genres.map((genre) => genre.toEntity()).toList(),
       id: this.id,
       inProduction: this.inProduction,
@@ -118,7 +113,6 @@ class TvSeriesDetailResponse extends Equatable {
   @override
   List<Object?> get props => [
         backdropPath,
-        firstAirDate,
         genres,
         id,
         inProduction,

@@ -32,7 +32,6 @@ final testTvSeries = TvSeries(
   voteAverage: 5.04,
   overview:
       "Based on the Pretty Little Liars series of young adult novels by Sara Shepard, the series follows the lives of four girls — Spencer, Hanna, Aria, and Emily — whose clique falls apart after the disappearance of their queen bee, Alison. One year later, they begin receiving messages from someone using the name \"A\" who threatens to expose their secrets — including long-hidden ones they thought only Alison knew.",
-  firstAirDate: "2010-06-08",
   originCountry: ["US"],
   genreIds: [18, 9648],
   originalLanguage: "en",
@@ -61,7 +60,6 @@ final testMovieDetail = MovieDetail(
 
 final testTvSeriesDetail = TvSeriesDetail(
   backdropPath: "/suopoADq0k8YZr4dQXcU6pToj6s.jpg",
-  firstAirDate: "2011-04-17",
   genres: [
     Genre(
       id: 10765,

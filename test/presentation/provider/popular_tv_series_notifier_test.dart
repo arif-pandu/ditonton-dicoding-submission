@@ -34,7 +34,6 @@ void main() {
     backdropPath: "backdropPath",
     voteAverage: 1.0,
     overview: "overview",
-    firstAirDate: "firstAirDate",
     originCountry: ["originCountry"],
     genreIds: [1],
     originalLanguage: "originalLanguage",

@@ -8,7 +8,6 @@ class TvSeries extends Equatable {
     required this.backdropPath,
     required this.voteAverage,
     required this.overview,
-    required this.firstAirDate,
     required this.originCountry,
     required this.genreIds,
     required this.originalLanguage,
@@ -30,7 +29,6 @@ class TvSeries extends Equatable {
   String? backdropPath;
   double? voteAverage;
   String? overview;
-  String? firstAirDate;
   List<String>? originCountry;
   List<int>? genreIds;
   String? originalLanguage;
@@ -46,7 +44,6 @@ class TvSeries extends Equatable {
         backdropPath,
         voteAverage,
         overview,
-        firstAirDate,
         originCountry,
         genreIds,
         originalLanguage,

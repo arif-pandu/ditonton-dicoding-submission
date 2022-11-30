@@ -59,7 +59,6 @@ void main() {
     voteAverage: 8.3,
     overview:
         "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
-    firstAirDate: "2011-04-17",
     originCountry: ["US"],
     genreIds: [10765, 18],
     originalLanguage: "en",

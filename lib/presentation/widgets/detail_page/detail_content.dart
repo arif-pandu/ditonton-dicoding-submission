@@ -14,6 +14,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class DetailContent extends StatelessWidget {
   const DetailContent({
     required this.contentCategory,
+    required this.id,
     required this.name,
     required this.imageUrl,
     required this.isAddedToWatchlist,
@@ -28,6 +29,7 @@ class DetailContent extends StatelessWidget {
   });
 
   final ContentCategory contentCategory;
+  final int id;
   final String name;
   final String? imageUrl;
   final bool isAddedToWatchlist;
@@ -156,7 +158,9 @@ class DetailContent extends StatelessWidget {
                             ),
                             () {
                               if (contentCategory == ContentCategory.Film) {
-                                return RecommendationMovieList();
+                                return RecommendationMovieList(
+                                  id: id,
+                                );
                               } else {
                                 return RecommendationTvSeriesList();
                               }

@@ -38,6 +38,7 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
             return SafeArea(
               child: DetailContent(
                 contentCategory: ContentCategory.TvSeries,
+                id: tvSeries.id,
                 name: tvSeries.name,
                 imageUrl: "https://image.tmdb.org/t/p/w500${tvSeries.posterPath}",
                 isAddedToWatchlist: provider.isAddedToWatchlist,

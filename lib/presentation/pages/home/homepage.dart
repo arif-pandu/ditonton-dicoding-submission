@@ -1,5 +1,6 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/presentation/bloc/movie_now_playing/movie_now_playing_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_popular/movie_popular_bloc.dart';
 import 'package:ditonton/presentation/pages/home/about_page.dart';
 import 'package:ditonton/presentation/pages/home/search_page.dart';
 import 'package:ditonton/presentation/pages/sub_page/movie_page.dart';
@@ -33,10 +34,11 @@ class _HomeMoviePageState extends State<HomePage> {
     super.initState();
     Future.microtask(() {
       context.read<MovieNowPlayingBloc>().add(OnFetchMovieNowPlaying());
+      context.read<MoviePopularBloc>().add(OnFetchMoviePopular());
 
       Provider.of<MovieListNotifier>(context, listen: false)
         // ..fetchNowPlayingMovies()
-        ..fetchPopularMovies()
+        // ..fetchPopularMovies()
         ..fetchTopRatedMovies();
       Provider.of<TvSeriesListNotifier>(context, listen: false)
         ..fetchNowPlayingTvSeries()

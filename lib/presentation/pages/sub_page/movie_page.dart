@@ -1,6 +1,7 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/bloc/movie_now_playing/movie_now_playing_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_popular/movie_popular_bloc.dart';
 import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
@@ -43,34 +44,29 @@ class MoviePage extends StatelessWidget {
             }
           },
         ),
-        // Consumer<MovieListNotifier>(builder: (context, data, child) {
-        //   final state = data.nowPlayingState;
-        //   if (state == RequestState.Loading) {
-        //     return Center(
-        //       child: CircularProgressIndicator(),
-        //     );
-        //   } else if (state == RequestState.Loaded) {
-        //     return MovieList(data.nowPlayingMovies);
-        //   } else {
-        //     return Text('Failed');
-        //   }
-        // }),
         SubHeading(
           title: 'Popular Movies',
           onTap: () => Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
         ),
-        Consumer<MovieListNotifier>(builder: (context, data, child) {
-          final state = data.popularMoviesState;
-          if (state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state == RequestState.Loaded) {
-            return MovieList(data.popularMovies);
-          } else {
-            return Text('Failed');
-          }
-        }),
+        BlocBuilder<MoviePopularBloc, MoviePopularState>(
+          builder: (context, state) {
+            if (state is MoviePopularInitial || state is MoviePopularLoading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is MoviePopularLoaded) {
+              return MovieList(state.popularMovie);
+            } else if (state is MoviePopularError) {
+              return Center(
+                child: Text(state.message),
+              );
+            } else {
+              return Center(
+                child: Text(state.runtimeType.toString()),
+              );
+            }
+          },
+        ),
         SubHeading(
           title: 'Top Rated Movies',
           onTap: () => Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),

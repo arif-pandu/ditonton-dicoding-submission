@@ -2,6 +2,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/bloc/movie_detail/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_now_playing/movie_now_playing_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_popular/movie_popular_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_recommendation/movie_recommendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
 import 'package:ditonton/presentation/pages/home/about_page.dart';
@@ -95,6 +96,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<MovieNowPlayingBloc>(
             create: (_) => di.locator<MovieNowPlayingBloc>(),
+          ),
+          BlocProvider<MoviePopularBloc>(
+            create: (_) => di.locator<MoviePopularBloc>(),
           ),
         ],
         child: MaterialApp(

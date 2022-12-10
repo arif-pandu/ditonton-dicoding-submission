@@ -1,6 +1,7 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/bloc/movie_detail/movie_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_now_playing/movie_now_playing_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_recommendation/movie_recommendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
 import 'package:ditonton/presentation/pages/home/about_page.dart';
@@ -14,7 +15,6 @@ import 'package:ditonton/presentation/pages/tv_series/now_playing_tv_series_page
 import 'package:ditonton/presentation/pages/tv_series/popular_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/tv_series/top_rated_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/tv_series/tv_series_detail_page.dart';
-import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
@@ -50,9 +50,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<TvSeriesListNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieDetailNotifier>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<TvSeriesDetailNotifier>(),
@@ -95,6 +92,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<MovieRecommendationBloc>(
             create: (_) => di.locator<MovieRecommendationBloc>(),
+          ),
+          BlocProvider<MovieNowPlayingBloc>(
+            create: (_) => di.locator<MovieNowPlayingBloc>(),
           ),
         ],
         child: MaterialApp(

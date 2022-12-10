@@ -25,9 +25,9 @@ import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/domain/usecases/search_tv_series.dart';
 import 'package:ditonton/presentation/bloc/movie_detail/movie_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_now_playing/movie_now_playing_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_recommendation/movie_recommendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
-import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
@@ -61,15 +61,7 @@ void init() {
       getTopRatedTvSeries: locator(),
     ),
   );
-  locator.registerFactory(
-    () => MovieDetailNotifier(
-      getMovieDetail: locator(),
-      getMovieRecommendations: locator(),
-      getWatchListStatus: locator(),
-      saveWatchlist: locator(),
-      removeWatchlist: locator(),
-    ),
-  );
+
   locator.registerFactory(
     () => TvSeriesDetailNotifier(
       getTvSeriesDetail: locator(),
@@ -143,6 +135,12 @@ void init() {
 
   locator.registerFactory(
     () => MovieRecommendationBloc(
+      locator(),
+    ),
+  );
+
+  locator.registerFactory(
+    () => MovieNowPlayingBloc(
       locator(),
     ),
   );

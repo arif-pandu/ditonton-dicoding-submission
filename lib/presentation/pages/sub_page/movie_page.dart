@@ -2,6 +2,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/bloc/movie_now_playing/movie_now_playing_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_popular/movie_popular_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_top_rated/movie_top_rated_bloc.dart';
 import 'package:ditonton/presentation/pages/movie/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/movie/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
@@ -71,18 +72,25 @@ class MoviePage extends StatelessWidget {
           title: 'Top Rated Movies',
           onTap: () => Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
         ),
-        Consumer<MovieListNotifier>(builder: (context, data, child) {
-          final state = data.topRatedMoviesState;
-          if (state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state == RequestState.Loaded) {
-            return MovieList(data.topRatedMovies);
-          } else {
-            return Text('Failed');
-          }
-        }),
+        BlocBuilder<MovieTopRatedBloc, MovieTopRatedState>(
+          builder: (context, state) {
+            if (state is MovieTopRatedInitial || state is MovieTopRatedLoading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is MovieTopRatedLoaded) {
+              return MovieList(state.topRatedMovie);
+            } else if (state is MovieTopRatedError) {
+              return Center(
+                child: Text(state.message),
+              );
+            } else {
+              return Center(
+                child: Text(state.runtimeType.toString()),
+              );
+            }
+          },
+        ),
       ],
     );
   }

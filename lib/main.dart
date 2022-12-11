@@ -7,6 +7,7 @@ import 'package:ditonton/presentation/bloc/movie_recommendation/movie_recommenda
 import 'package:ditonton/presentation/bloc/movie_top_rated/movie_top_rated_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_detail/tv_series_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_now_playing/tv_series_now_playing_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_recommendation/tv_series_recommendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_watchlist/tv_series_watchlist_bloc.dart';
 import 'package:ditonton/presentation/pages/home/about_page.dart';
@@ -116,6 +117,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<TvSeriesRecommendationBloc>(
             create: (_) => di.locator<TvSeriesRecommendationBloc>(),
           ),
+          BlocProvider<TvSeriesNowPlayingBloc>(
+            create: (_) => di.locator<TvSeriesNowPlayingBloc>(),
+          ),
         ],
         child: MaterialApp(
           title: 'Ditonton',
@@ -131,8 +135,8 @@ class MyApp extends StatelessWidget {
             switch (settings.name) {
               case '/home':
                 return MaterialPageRoute(builder: (_) => HomePage());
-              case NowPlayingTVSeriesPage.ROUTE_NAME:
-                return CupertinoPageRoute(builder: (_) => NowPlayingTVSeriesPage());
+              case NowPlayingTvSeriesPage.ROUTE_NAME:
+                return CupertinoPageRoute(builder: (_) => NowPlayingTvSeriesPage());
               case PopularMoviesPage.ROUTE_NAME:
                 return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
               case PopularTVSeriesPage.ROUTE_NAME:

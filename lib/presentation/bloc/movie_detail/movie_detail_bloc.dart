@@ -12,16 +12,10 @@ part 'movie_detail_state.dart';
 class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   MovieDetailBloc(
     this.getMovieDetail,
-    this.getWatchListStatus,
-    this.saveWatchlist,
-    this.removeWatchlist,
   ) : super(MovieDetailInitial()) {
     on<OnFetchMovieDetail>(_onFetchMovieDetail);
   }
   final GetMovieDetail getMovieDetail;
-  final GetWatchListStatus getWatchListStatus;
-  final SaveWatchlist saveWatchlist;
-  final RemoveWatchlist removeWatchlist;
 
   void _onFetchMovieDetail(
     OnFetchMovieDetail event,
@@ -36,7 +30,7 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
         emit(MovieDetailFetchFailed(failure.message));
       },
       (movie) {
-        emit(MovieDetailFetchSuccess(movie, false));
+        emit(MovieDetailFetchSuccess(movie));
       },
     );
   }

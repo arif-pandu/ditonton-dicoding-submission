@@ -30,7 +30,6 @@ class MovieWatchlistBloc extends Bloc<MovieWatchlistEvent, MovieWatchlistState> 
     final result = await getWatchListStatus.executeMovie(event.id);
 
     emit(MovieWatchlistStatus(result));
-    print("Emit load");
   }
 
   void _onAddWatchlist(

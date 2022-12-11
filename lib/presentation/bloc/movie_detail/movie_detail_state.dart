@@ -13,12 +13,13 @@ class MovieDetailFetchLoading extends MovieDetailState {}
 
 class MovieDetailFetchSuccess extends MovieDetailState {
   final MovieDetail movie;
-  final bool isAddedToWatchlist;
 
-  MovieDetailFetchSuccess(this.movie, this.isAddedToWatchlist);
+  MovieDetailFetchSuccess(
+    this.movie,
+  );
 
   @override
-  List<Object> get props => [movie, isAddedToWatchlist];
+  List<Object> get props => [movie];
 }
 
 class MovieDetailFetchFailed extends MovieDetailState {

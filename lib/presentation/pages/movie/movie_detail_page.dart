@@ -21,9 +21,13 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   void initState() {
     super.initState();
-    context.read<MovieDetailBloc>().add(OnFetchMovieDetail(widget.id));
-    context.read<MovieWatchlistBloc>().add(OnLoadMovieWatchlist(widget.id));
-    context.read<MovieRecommendationBloc>().add(OnFetchMovieRecommendation(widget.id));
+    Future.microtask(
+      () {
+        context.read<MovieDetailBloc>().add(OnFetchMovieDetail(widget.id));
+        context.read<MovieWatchlistBloc>().add(OnLoadMovieWatchlist(widget.id));
+        context.read<MovieRecommendationBloc>().add(OnFetchMovieRecommendation(widget.id));
+      },
+    );
   }
 
   @override
@@ -114,23 +118,13 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           print("Added");
         }
 
-        if (isAddedToWatchlist) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "Removed From Watchlist",
-              ),
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              isAddedToWatchlist ? "Removed From Watchlist" : " Added To Watchlist",
             ),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "Added To Watchlist",
-              ),
-            ),
-          );
-        }
+          ),
+        );
       },
       genres: movie.genres,
       overview: movie.overview,

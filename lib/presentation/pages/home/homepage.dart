@@ -38,10 +38,6 @@ class _HomeMoviePageState extends State<HomePage> {
       context.read<MoviePopularBloc>().add(OnFetchMoviePopular());
       context.read<MovieTopRatedBloc>().add(OnFetchMovieTopRated());
 
-      // Provider.of<MovieListNotifier>(context, listen: false)
-      // ..fetchNowPlayingMovies()
-      // ..fetchPopularMovies()
-      // ..fetchTopRatedMovies();
       Provider.of<TvSeriesListNotifier>(context, listen: false)
         ..fetchNowPlayingTvSeries()
         ..fetchPopularTvSeries()

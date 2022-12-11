@@ -19,18 +19,15 @@ class MovieRecommendationBloc extends Bloc<MovieRecommendationEvent, MovieRecomm
     OnFetchMovieRecommendation event,
     Emitter<MovieRecommendationState> emit,
   ) async {
-    print("EMIT LOADING");
     emit(MovieRecommendationLoading());
 
     final result = await getMovieRecommendations.execute(event.id);
 
-    await result.fold(
-      (failure) async {
-        print("EMIT FAILED");
+    result.fold(
+      (failure) {
         emit(MovieRecommendationError(failure.message));
       },
-      (recommendation) async {
-        print("EMIT SUCCESS");
+      (recommendation) {
         emit(MovieRecommendationLoaded(recommendation));
       },
     );

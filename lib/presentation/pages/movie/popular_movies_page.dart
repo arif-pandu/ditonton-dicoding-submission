@@ -1,22 +1,12 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
+import 'package:ditonton/presentation/bloc/movie_popular/movie_popular_bloc.dart';
 import 'package:ditonton/presentation/widgets/card_thumbnail.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PopularMoviesPage extends StatefulWidget {
+class PopularMoviesPage extends StatelessWidget {
   static const ROUTE_NAME = '/popular-movie';
-
-  @override
-  _PopularMoviesPageState createState() => _PopularMoviesPageState();
-}
-
-class _PopularMoviesPageState extends State<PopularMoviesPage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() => Provider.of<PopularMoviesNotifier>(context, listen: false).fetchPopularMovies());
-  }
+  const PopularMoviesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +16,17 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularMoviesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+        child: BlocBuilder<MoviePopularBloc, MoviePopularState>(
+          builder: (context, state) {
+            if (state is MoviePopularInitial || state is MoviePopularLoading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is MoviePopularLoaded) {
               return ListView.builder(
+                itemCount: state.popularMovie.length,
                 itemBuilder: (context, index) {
-                  final movie = data.movies[index];
+                  final movie = state.popularMovie[index];
                   return CardThumbnail(
                     ContentCategory.Film,
                     movie.id,
@@ -44,12 +35,14 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                     movie.overview,
                   );
                 },
-                itemCount: data.movies.length,
+              );
+            } else if (state is MoviePopularError) {
+              return Center(
+                child: Text(state.message),
               );
             } else {
               return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.runtimeType.toString()),
               );
             }
           },

@@ -6,6 +6,8 @@ import 'package:ditonton/presentation/bloc/movie_popular/movie_popular_bloc.dart
 import 'package:ditonton/presentation/bloc/movie_recommendation/movie_recommendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_top_rated/movie_top_rated_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
+import 'package:ditonton/presentation/bloc/search_movie/search_movie_bloc.dart';
+import 'package:ditonton/presentation/bloc/search_tv_series/search_tv_series_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_detail/tv_series_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_now_playing/tv_series_now_playing_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_popular/tv_series_popular_bloc.dart';
@@ -99,6 +101,12 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<WatchlistTvSeriesBloc>(
             create: (_) => di.locator<WatchlistTvSeriesBloc>(),
+          ),
+          BlocProvider<SearchMovieBloc>(
+            create: (_) => di.locator<SearchMovieBloc>(),
+          ),
+          BlocProvider<SearchTvSeriesBloc>(
+            create: (_) => di.locator<SearchTvSeriesBloc>(),
           ),
         ],
         child: MaterialApp(

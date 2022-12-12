@@ -1,16 +1,13 @@
-import 'dart:io';
-
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
+import 'package:ditonton/presentation/bloc/search_movie/search_movie_bloc.dart';
+import 'package:ditonton/presentation/bloc/search_tv_series/search_tv_series_bloc.dart';
 import 'package:ditonton/presentation/provider/search_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_series_search_notifier.dart';
 import 'package:ditonton/presentation/widgets/card_thumbnail.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class SearchPage extends StatelessWidget {
   static const ROUTE_NAME = '/search';
@@ -28,9 +25,9 @@ class SearchPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
-                onSubmitted: (query) {
-                  Provider.of<MovieSearchNotifier>(context, listen: false).fetchMovieSearch(query);
-                  Provider.of<TvSeriesSearchNotifier>(context, listen: false).fetchMovieSearch(query);
+                onChanged: (query) {
+                  context.read<SearchMovieBloc>().add(OnQueryMovieChanged(query));
+                  context.read<SearchTvSeriesBloc>().add(OnQueryTvSeriesChanged(query));
                 },
                 decoration: InputDecoration(
                   hintText: 'Search title',
@@ -90,18 +87,19 @@ class _MovieResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Consumer<MovieSearchNotifier>(
-        builder: (context, data, child) {
-          if (data.state == RequestState.Loading) {
+      child: BlocBuilder<SearchMovieBloc, SearchMovieState>(
+        builder: (context, state) {
+          if (state is SearchMovieEmpty) {
+            return Container();
+          } else if (state is SearchMovieLoading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (data.state == RequestState.Loaded) {
-            final result = data.searchResult;
+          } else if (state is SearchMovieHasResult) {
             return ListView.builder(
-              padding: const EdgeInsets.all(8),
+              itemCount: state.movieResult.length,
               itemBuilder: (context, index) {
-                final movie = data.searchResult[index];
+                final movie = state.movieResult[index];
                 return CardThumbnail(
                   ContentCategory.Film,
                   movie.id,
@@ -110,10 +108,15 @@ class _MovieResult extends StatelessWidget {
                   movie.overview,
                 );
               },
-              itemCount: result.length,
+            );
+          } else if (state is SearchMovieError) {
+            return Center(
+              child: Text(state.message),
             );
           } else {
-            return Container();
+            return Center(
+              child: Text(state.runtimeType.toString()),
+            );
           }
         },
       ),
@@ -129,18 +132,19 @@ class _TvSeriesResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Consumer<TvSeriesSearchNotifier>(
-        builder: (context, data, child) {
-          if (data.state == RequestState.Loading) {
+      child: BlocBuilder<SearchTvSeriesBloc, SearchTvSeriesState>(
+        builder: (context, state) {
+          if (state is SearchTvSeriesEmpty) {
+            return Container();
+          } else if (state is SearchTvSeriesLoading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (data.state == RequestState.Loaded) {
-            final result = data.searchResult;
+          } else if (state is SearchTvSeriesHasResult) {
             return ListView.builder(
-              padding: const EdgeInsets.all(8),
+              itemCount: state.tvSeriesResult.length,
               itemBuilder: (context, index) {
-                final tvSeries = data.searchResult[index];
+                final tvSeries = state.tvSeriesResult[index];
                 return CardThumbnail(
                   ContentCategory.TvSeries,
                   tvSeries.id,
@@ -149,10 +153,15 @@ class _TvSeriesResult extends StatelessWidget {
                   tvSeries.overview,
                 );
               },
-              itemCount: result.length,
+            );
+          } else if (state is SearchTvSeriesError) {
+            return Center(
+              child: Text(state.message),
             );
           } else {
-            return Container();
+            return Center(
+              child: Text(state.runtimeType.toString()),
+            );
           }
         },
       ),

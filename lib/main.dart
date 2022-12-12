@@ -8,7 +8,9 @@ import 'package:ditonton/presentation/bloc/movie_top_rated/movie_top_rated_bloc.
 import 'package:ditonton/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_detail/tv_series_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_now_playing/tv_series_now_playing_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_popular/tv_series_popular_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_recommendation/tv_series_recommendation_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_top_rated/tv_series_top_rated_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_watchlist/tv_series_watchlist_bloc.dart';
 import 'package:ditonton/presentation/pages/home/about_page.dart';
 import 'package:ditonton/presentation/pages/movie/movie_detail_page.dart';
@@ -120,6 +122,12 @@ class MyApp extends StatelessWidget {
           BlocProvider<TvSeriesNowPlayingBloc>(
             create: (_) => di.locator<TvSeriesNowPlayingBloc>(),
           ),
+          BlocProvider<TvSeriesPopularBloc>(
+            create: (_) => di.locator<TvSeriesPopularBloc>(),
+          ),
+          BlocProvider<TvSeriesTopRatedBloc>(
+            create: (_) => di.locator<TvSeriesTopRatedBloc>(),
+          ),
         ],
         child: MaterialApp(
           title: 'Ditonton',
@@ -139,8 +147,8 @@ class MyApp extends StatelessWidget {
                 return CupertinoPageRoute(builder: (_) => NowPlayingTvSeriesPage());
               case PopularMoviesPage.ROUTE_NAME:
                 return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
-              case PopularTVSeriesPage.ROUTE_NAME:
-                return CupertinoPageRoute(builder: (_) => PopularTVSeriesPage());
+              case PopularTvSeriesPage.ROUTE_NAME:
+                return CupertinoPageRoute(builder: (_) => PopularTvSeriesPage());
               case TopRatedMoviesPage.ROUTE_NAME:
                 return CupertinoPageRoute(builder: (_) => TopRatedMoviesPage());
               case TopRatedTvSeriesPage.ROUTE_NAME:

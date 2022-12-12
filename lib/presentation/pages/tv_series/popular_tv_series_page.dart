@@ -1,22 +1,11 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/popular_tv_series_notifier.dart';
+import 'package:ditonton/presentation/bloc/tv_series_popular/tv_series_popular_bloc.dart';
 import 'package:ditonton/presentation/widgets/card_thumbnail.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PopularTVSeriesPage extends StatefulWidget {
+class PopularTvSeriesPage extends StatelessWidget {
   static const ROUTE_NAME = "/popular-tv";
-
-  @override
-  State<PopularTVSeriesPage> createState() => _PopularTVSeriesPageState();
-}
-
-class _PopularTVSeriesPageState extends State<PopularTVSeriesPage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() => Provider.of<PopularTvSeriesNotifier>(context, listen: false).fetchPopularTvSeries());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +15,17 @@ class _PopularTVSeriesPageState extends State<PopularTVSeriesPage> {
       ),
       body: Padding(
         padding: EdgeInsets.all(8),
-        child: Consumer<PopularTvSeriesNotifier>(
-          builder: (context, data, _) {
-            if (data.state == RequestState.Loading) {
+        child: BlocBuilder<TvSeriesPopularBloc, TvSeriesPopularState>(
+          builder: (context, state) {
+            if (state is TvSeriesPopularInitial || state is TvSeriesPopularLoading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (state is TvSeriesPopularLoaded) {
               return ListView.builder(
+                itemCount: state.popularTvSeries.length,
                 itemBuilder: (context, index) {
-                  final tvSeries = data.tvSeries[index];
+                  final tvSeries = state.popularTvSeries[index];
                   return CardThumbnail(
                     ContentCategory.TvSeries,
                     tvSeries.id,
@@ -44,12 +34,14 @@ class _PopularTVSeriesPageState extends State<PopularTVSeriesPage> {
                     tvSeries.overview,
                   );
                 },
-                itemCount: data.tvSeries.length,
+              );
+            } else if (state is TvSeriesPopularError) {
+              return Center(
+                child: Text(state.message),
               );
             } else {
               return Center(
-                key: Key("error_message"),
-                child: Text(data.message),
+                child: Text(state.runtimeType.toString()),
               );
             }
           },

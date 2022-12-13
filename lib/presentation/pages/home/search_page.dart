@@ -5,7 +5,6 @@ import 'package:ditonton/presentation/bloc/search_tv_series/search_tv_series_blo
 import 'package:ditonton/presentation/widgets/card_thumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
   static const ROUTE_NAME = '/search';

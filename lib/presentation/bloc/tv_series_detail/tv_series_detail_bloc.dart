@@ -1,9 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
 import 'package:ditonton/domain/usecases/get_tv_series_detail.dart';
-import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
-import 'package:ditonton/domain/usecases/remove_watchlist.dart';
-import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:equatable/equatable.dart';
 
 part 'tv_series_detail_event.dart';

@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';

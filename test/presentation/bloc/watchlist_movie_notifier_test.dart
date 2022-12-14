@@ -28,8 +28,7 @@ void main() {
 
   test('should change movies data when data is gotten successfully', () async {
     // arrange
-    when(mockGetWatchlistMovies.execute())
-        .thenAnswer((_) async => Right([testWatchlistMovie]));
+    when(mockGetWatchlistMovies.execute()).thenAnswer((_) async => Right([testWatchlistMovie]));
     // act
     await provider.fetchWatchlistMovies();
     // assert
@@ -40,8 +39,7 @@ void main() {
 
   test('should return error when data is unsuccessful', () async {
     // arrange
-    when(mockGetWatchlistMovies.execute())
-        .thenAnswer((_) async => Left(DatabaseFailure("Can't get data")));
+    when(mockGetWatchlistMovies.execute()).thenAnswer((_) async => Left(DatabaseFailure("Can't get data")));
     // act
     await provider.fetchWatchlistMovies();
     // assert

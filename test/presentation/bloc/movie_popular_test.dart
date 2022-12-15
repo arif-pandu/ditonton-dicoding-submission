@@ -49,7 +49,7 @@ void main() {
       );
 
       blocTest<MoviePopularBloc, MoviePopularState>(
-        "should emit [Loading, Error] when data is gotten successfully",
+        "should emit [Loading, Error] when data is failed to get",
         build: () {
           when(mockGetPopularMovies.execute()).thenAnswer(
             (_) async => Left(ServerFailure("Failed")),

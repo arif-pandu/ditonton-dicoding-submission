@@ -2,12 +2,14 @@ import 'package:ditonton/presentation/bloc/movie_detail/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_recommendation/movie_recommendation_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
 import 'package:ditonton/presentation/pages/movie/movie_detail_page.dart';
+import 'package:ditonton/presentation/widgets/detail_page/detail_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../dummy_data/dummy_objects.dart';
 import 'movie_detail_page_test.mocks.dart';
 
 @GenerateMocks(
@@ -40,6 +42,17 @@ void main() {
     when(mockMovieRecommendationBloc.state).thenReturn(MovieRecommendationInitial());
   }
 
+  void prepareLoadingState() {
+    when(mockMovieDetailBloc.state).thenReturn(MovieDetailFetchLoading());
+    when(mockMovieRecommendationBloc.state).thenReturn(MovieRecommendationLoading());
+  }
+
+  void prepareLoadedState(bool isWatchlist) {
+    when(mockMovieDetailBloc.state).thenReturn(MovieDetailFetchSuccess(testMovieDetail));
+    when(mockMovieWatchlistBloc.state).thenReturn(MovieWatchlistStatus(isWatchlist));
+    when(mockMovieRecommendationBloc.state).thenReturn(MovieRecommendationLoaded(testMovieList));
+  }
+
   MultiBlocProvider buildRequiredWidget(MockMovieDetailBloc mockMovieDetailBloc,
       MockMovieWatchlistBloc mockMovieWatchlistBloc, MockMovieRecommendationBloc mockMovieRecommendationBloc, int tId) {
     return MultiBlocProvider(
@@ -61,18 +74,92 @@ void main() {
   }
 
   final tId = 1;
-  testWidgets(
-    'Initial Page',
-    (WidgetTester tester) async {
-      prepareInitStream();
 
-      prepareInitState();
+  group(
+    "shows Movie detail page",
+    () {
+      testWidgets(
+        'Initial Page',
+        (WidgetTester tester) async {
+          prepareInitStream();
+          prepareInitState();
 
-      await tester.pumpWidget(
-        buildRequiredWidget(mockMovieDetailBloc, mockMovieWatchlistBloc, mockMovieRecommendationBloc, tId),
+          await tester.pumpWidget(
+            buildRequiredWidget(mockMovieDetailBloc, mockMovieWatchlistBloc, mockMovieRecommendationBloc, tId),
+          );
+
+          expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        },
       );
 
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      testWidgets(
+        "should displays detail content of a Movie if Fetch Success",
+        (WidgetTester tester) async {
+          prepareInitStream();
+          prepareInitState();
+
+          prepareLoadingState();
+
+          prepareLoadedState(false);
+
+          await tester.pumpWidget(
+            buildRequiredWidget(
+              mockMovieDetailBloc,
+              mockMovieWatchlistBloc,
+              mockMovieRecommendationBloc,
+              tId,
+            ),
+          );
+
+          expect(find.byType(SafeArea), findsOneWidget);
+        },
+      );
+
+      testWidgets(
+        "should displays check icon if Movie is added to watchlist",
+        (WidgetTester tester) async {
+          prepareInitStream();
+          prepareInitState();
+
+          prepareLoadingState();
+
+          prepareLoadedState(true);
+
+          await tester.pumpWidget(
+            buildRequiredWidget(
+              mockMovieDetailBloc,
+              mockMovieWatchlistBloc,
+              mockMovieRecommendationBloc,
+              tId,
+            ),
+          );
+
+          expect(find.byIcon(Icons.check), findsOneWidget);
+        },
+      );
+
+      testWidgets(
+        "should displays add icon if Movie is not added to watchlist",
+        (WidgetTester tester) async {
+          prepareInitStream();
+          prepareInitState();
+
+          prepareLoadingState();
+
+          prepareLoadedState(false);
+
+          await tester.pumpWidget(
+            buildRequiredWidget(
+              mockMovieDetailBloc,
+              mockMovieWatchlistBloc,
+              mockMovieRecommendationBloc,
+              tId,
+            ),
+          );
+
+          expect(find.byIcon(Icons.add), findsOneWidget);
+        },
+      );
     },
   );
 }

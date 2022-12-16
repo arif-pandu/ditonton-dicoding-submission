@@ -10,6 +10,7 @@ import 'package:ditonton/presentation/pages/home/search_page.dart';
 import 'package:ditonton/presentation/pages/sub_page/movie_page.dart';
 import 'package:ditonton/presentation/pages/sub_page/tv_series_page.dart';
 import 'package:ditonton/presentation/pages/home/watchlist_page.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -78,6 +79,13 @@ class _HomeMoviePageState extends State<HomePage> {
               },
               leading: Icon(Icons.info_outline),
               title: Text('About'),
+            ),
+            ListTile(
+              onTap: () {
+                FirebaseCrashlytics.instance.crash();
+              },
+              leading: Icon(Icons.error),
+              title: Text('Try it out! CRASH'),
             ),
           ],
         ),

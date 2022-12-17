@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/datasources/movie_local_data_source.dart';
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
@@ -181,10 +183,10 @@ void init() {
   );
 
   // data sources
-  locator.registerLazySingleton<MovieRemoteDataSource>(() => MovieRemoteDataSourceImpl(client: locator()));
+  locator.registerLazySingleton<MovieRemoteDataSource>(() => MovieRemoteDataSourceImpl());
   locator.registerLazySingleton<MovieLocalDataSource>(() => MovieLocalDataSourceImpl(databaseHelper: locator()));
 
-  locator.registerLazySingleton<TvSeriesRemoteDataSource>(() => TvSeriesRemoteDataSourceimpl(client: locator()));
+  locator.registerLazySingleton<TvSeriesRemoteDataSource>(() => TvSeriesRemoteDataSourceimpl());
   locator.registerLazySingleton<TvSeriesLocalDataSource>(() => TvSeriesLocalDataSourceImpl(databaseHelper: locator()));
 
   // helper
@@ -192,4 +194,6 @@ void init() {
 
   // external
   locator.registerLazySingleton(() => http.Client());
+
+  locator.registerLazySingletonAsync(() async => HttpClient());
 }

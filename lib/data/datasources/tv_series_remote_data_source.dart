@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/data/models/tv_series_detail_model.dart';
 import 'package:ditonton/data/models/tv_series_model.dart';
 import 'package:ditonton/data/models/tv_series_response.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter/services.dart';
+import 'package:http/io_client.dart';
 
 abstract class TvSeriesRemoteDataSource {
   Future<List<TVSeriesModel>> getNowPlayingTvSeries();
@@ -18,13 +20,31 @@ class TvSeriesRemoteDataSourceimpl implements TvSeriesRemoteDataSource {
   static const API_KEY = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
   static const BASE_URL = 'https://api.themoviedb.org/3';
 
-  final http.Client client;
+  late HttpClient client;
+  IOClient ioClient = IOClient();
 
-  TvSeriesRemoteDataSourceimpl({required this.client});
+  TvSeriesRemoteDataSourceimpl() {
+    initClient();
+  }
+
+  initClient() async {
+    client = HttpClient(context: await globalContext);
+    client.badCertificateCallback = (cert, host, port) => false;
+
+    ioClient = IOClient(client);
+  }
+
+  Future<SecurityContext> get globalContext async {
+    final sslCert = await rootBundle.load('certificates/certificate.pem');
+    SecurityContext securityContext = SecurityContext(withTrustedRoots: false);
+    securityContext.setTrustedCertificatesBytes(sslCert.buffer.asInt8List());
+    print("Secured");
+    return securityContext;
+  }
 
   @override
   Future<List<TVSeriesModel>> getNowPlayingTvSeries() async {
-    final response = await client.get(Uri.parse('$BASE_URL/tv/on_the_air?$API_KEY'));
+    final response = await ioClient.get(Uri.parse('$BASE_URL/tv/on_the_air?$API_KEY'));
 
     if (response.statusCode == 200) {
       return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
@@ -35,7 +55,7 @@ class TvSeriesRemoteDataSourceimpl implements TvSeriesRemoteDataSource {
 
   @override
   Future<List<TVSeriesModel>> getPopularTvSeries() async {
-    final response = await client.get(Uri.parse('$BASE_URL/tv/popular?$API_KEY'));
+    final response = await ioClient.get(Uri.parse('$BASE_URL/tv/popular?$API_KEY'));
 
     if (response.statusCode == 200) {
       return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
@@ -46,7 +66,7 @@ class TvSeriesRemoteDataSourceimpl implements TvSeriesRemoteDataSource {
 
   @override
   Future<List<TVSeriesModel>> getTopRatedTvSeries() async {
-    final response = await client.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'));
+    final response = await ioClient.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'));
 
     if (response.statusCode == 200) {
       return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
@@ -57,7 +77,7 @@ class TvSeriesRemoteDataSourceimpl implements TvSeriesRemoteDataSource {
 
   @override
   Future<TvSeriesDetailResponse> getTvSeriesDetail(int id) async {
-    final response = await client.get(Uri.parse('$BASE_URL/tv/$id?$API_KEY'));
+    final response = await ioClient.get(Uri.parse('$BASE_URL/tv/$id?$API_KEY'));
 
     if (response.statusCode == 200) {
       return TvSeriesDetailResponse.fromJson(json.decode(response.body));
@@ -68,7 +88,7 @@ class TvSeriesRemoteDataSourceimpl implements TvSeriesRemoteDataSource {
 
   @override
   Future<List<TVSeriesModel>> getTvSeriesRecommendations(int id) async {
-    final response = await client.get(Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY'));
+    final response = await ioClient.get(Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY'));
 
     if (response.statusCode == 200) {
       return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
@@ -79,7 +99,7 @@ class TvSeriesRemoteDataSourceimpl implements TvSeriesRemoteDataSource {
 
   @override
   Future<List<TVSeriesModel>> searchTvSeries(String query) async {
-    final response = await client.get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query'));
+    final response = await ioClient.get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query'));
 
     if (response.statusCode == 200) {
       return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:ditonton/common/ssl_pinning.dart';
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/datasources/movie_local_data_source.dart';
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
@@ -8,9 +9,7 @@ import 'package:ditonton/data/repositories/tv_series_repository_impl.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 import 'package:ditonton/domain/repositories/tv_series_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/io_client.dart';
 import 'package:mockito/annotations.dart';
-import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 
 import '../dummy_data/dummy_objects.dart';
@@ -25,7 +24,7 @@ import 'test_helper.mocks.dart';
   // TvSeriesLocalDataSource,
   DatabaseHelper,
 ], customMocks: [
-  MockSpec<IOClient>(as: #MockIOClient),
+  MockSpec<SSLPinning>(as: #MockSSLPinning),
   MockSpec<TvSeriesLocalDataSource>(
     as: #MockTvSeriesLocalDataSource,
     onMissingStub: OnMissingStub.returnDefault,

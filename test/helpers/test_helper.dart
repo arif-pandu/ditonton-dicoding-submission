@@ -8,6 +8,7 @@ import 'package:ditonton/data/repositories/tv_series_repository_impl.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 import 'package:ditonton/domain/repositories/tv_series_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/io_client.dart';
 import 'package:mockito/annotations.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
@@ -24,7 +25,7 @@ import 'test_helper.mocks.dart';
   // TvSeriesLocalDataSource,
   DatabaseHelper,
 ], customMocks: [
-  MockSpec<http.Client>(as: #MockHttpClient),
+  MockSpec<IOClient>(as: #MockIOClient),
   MockSpec<TvSeriesLocalDataSource>(
     as: #MockTvSeriesLocalDataSource,
     onMissingStub: OnMissingStub.returnDefault,

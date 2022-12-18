@@ -117,7 +117,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
                       itemBuilder: (context, index) {
                         final tvSeries = state.watchlistTvSeries[index];
                         return CardThumbnail(
-                          ContentCategory.Film,
+                          ContentCategory.TvSeries,
                           tvSeries.id,
                           tvSeries.posterPath,
                           tvSeries.name,
